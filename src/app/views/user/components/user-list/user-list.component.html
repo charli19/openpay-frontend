@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-md-12">
+    <mat-card class="card">
+      <mat-card-header class="header">
+        <mat-card-title>Listado de usuarios</mat-card-title>
+      </mat-card-header>
+
+      <table mat-table [dataSource]="users" class="table mat-elevation-z8">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Nombre</th>
+          <td mat-cell *matCellDef="let element">{{ element?.name }}</td>
+        </ng-container>
+        <ng-container matColumnDef="surname">
+          <th mat-header-cell *matHeaderCellDef>Apellido</th>
+          <td mat-cell *matCellDef="let element">{{ element.surname }}</td>
+        </ng-container>
+        <ng-container matColumnDef="documentType">
+          <th mat-header-cell *matHeaderCellDef>Tipo de documento</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element?.documentType?.name }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="documentNumber">
+          <th mat-header-cell *matHeaderCellDef>Documento</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.documentNumber }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="wallets">
+          <th mat-header-cell *matHeaderCellDef class="text-right">Billeteras</th>
+          <td mat-cell *matCellDef="let element">
+            <span *ngFor="let wallet of element.wallets; let i = index">
+                <b>{{ wallet.name }}:</b> {{wallet.coins}} coins
+              <ng-container *ngIf="element.wallets.length !== i + 1">
+                <br />
+              </ng-container>
+            </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="text-right">Acciones</th>
+          <td mat-cell *matCellDef="let element" class="text-right">
+            <button
+              class="button"
+              title="Nueva transacción"
+              *ngIf="element.name != 'Admin'"
+              mat-menu-item
+              (click)="newTransaction(element.id)">
+              <mat-icon class="dolar">attach_money</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="content col-md-12">
+  <mat-card class="card">
+    <mat-card-header class="header">
+      <mat-card-title>Nueva transacción</mat-card-title>
+    </mat-card-header>
+
+    <form [formGroup]="userInfoForm">
+      <div class="table">
+        <div class="row">
+        <div class="col-md-3">
+          <mat-form-field class="field-wallet" appearance="outline">
+            <mat-label>Seleccione cuenta origen</mat-label>
+            <mat-select style="min-width: calc(100% + 1px);" formControlName="originWallet">
+              <mat-option *ngFor="let wallet of user.wallets" [value]="wallet">
+                {{user.name}} - {{ wallet.name }} - {{wallet.description}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field class="field-wallet" appearance="outline">
+              <mat-label>Seleccione cuenta destino</mat-label>
+              <mat-select style="min-width: calc(100% + 1px);" formControlName="destinyWallet">
+                <mat-option *ngFor="let wallet of wallets" [value]="wallet">
+                    {{wallet.user.name}} - {{ wallet.name }} - {{wallet.description}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field class="field-coin" appearance="outline">
+            <mat-label>Introduzca coins a transferir</mat-label>
+            <input type="number" matInput placeholder="Coins" formControlName="coins">
+            </mat-form-field>
+          </div>
+      </div>
+      </div>
+    <div class="transaction-div" >
+        <button class="button-transaction" (click)="saveCreate()" mat-button >Realizar transacción</button>
+      </div>
+    </form>
+
+  </mat-card>
+</div>
